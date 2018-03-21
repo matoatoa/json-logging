@@ -1,0 +1,23 @@
+<configuration>
+    <springProfile name="cloud,json">
+        <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <fieldNames>
+                    <timestamp>time</timestamp>
+                    <message>msg</message>
+                    <thread>[ignore]</thread>
+                    <logger>class</logger>
+                    <version>[ignore]</version>
+                    <levelValue>[ignore]</levelValue>
+                </fieldNames>
+            </encoder>
+        </appender>
+        <root level="all">
+            <appender-ref ref="consoleAppender" />
+        </root>
+    </springProfile>
+
+    <springProfile name="default">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    </springProfile>
+</configuration>
