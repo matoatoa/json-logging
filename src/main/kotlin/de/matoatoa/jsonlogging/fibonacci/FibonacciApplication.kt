@@ -15,13 +15,6 @@ class FibonacciApplication{
 
     @Bean
     fun restTemplate(builder: RestTemplateBuilder) = builder.basicAuthorization("USER", "password").build(FibRestTemplate::class.java)!!
-
-
-    @Bean
-    fun initLogger(app: AppProperties) = InitializingBean {
-        MDC.put("app", app.name)
-        MDC.put("version", app.version)
-    }
 }
 
 class FibRestTemplate : RestTemplate()
