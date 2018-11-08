@@ -18,17 +18,17 @@ class LoggingAspect {
 
     @Before("method() && webcontroller()")
     fun logEnterInfo(jointPoint: JoinPoint) = LoggerFactory.getLogger(jointPoint.signature.declaringType)
-            .info("Incoming request: ${jointPoint.signature.name}${jointPoint.args.toMutableList()}")
+            .info("Incoming request {}{}", jointPoint.signature.name, jointPoint.args.toMutableList())
 
     @Before("method() && within(@TraceLogging *) && !webcontroller()")
     fun logEnterMethod(jointPoint: JoinPoint) = LoggerFactory.getLogger(jointPoint.signature.declaringType)
-            .debug("Entering method ${jointPoint.signature.name} ${jointPoint.args.toMutableList()}")
+            .debug("Entering method {}{}", jointPoint.signature.name, jointPoint.args.toMutableList())
 
     @AfterReturning("method() && within(@TraceLogging *)", returning = "returnValue")
-    fun logReturnMethod(jointPoint: JoinPoint, returnValue : Any) = LoggerFactory.getLogger(jointPoint.signature.declaringType)
-            .debug("Leaving method ${jointPoint.signature.name} with return value <<$returnValue>>")
+    fun logReturnMethod(jointPoint: JoinPoint, returnValue: Any) = LoggerFactory.getLogger(jointPoint.signature.declaringType)
+            .debug("Leaving method {}={}", jointPoint.signature.name, returnValue)
 
     @AfterThrowing("method() && within(@TraceLogging *)", throwing = "up")
     fun logExceptionMethod(jointPoint: JoinPoint, up: Exception) = LoggerFactory.getLogger(jointPoint.signature.declaringType)
-            .warn("Throwing ${jointPoint.signature.toShortString()} : ${up.message}")
+            .warn("Throwing {} : {}", jointPoint.signature.toShortString(), up.message)
 }

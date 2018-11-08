@@ -1,6 +1,6 @@
 <configuration>
-    <springProperty name="APP_NAME" scope="context" source="rcvs.module-name"/>
-    <springProperty name="APP_VERSION" scope="context" source="rcvs.module-version="/>
+    <springProperty name="APP_NAME" scope="context" source="de.matoatoa.app.name"/>
+    <springProperty name="APP_VERSION" scope="context" source="de.matoatoa.app.version"/>
     <springProfile name="cloud,json">
         <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
